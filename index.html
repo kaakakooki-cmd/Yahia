@@ -399,6 +399,52 @@ function yDownload(){
 yPreview();
 </script>
 <!-- END YAHIA_FEATURES_V2 -->
-
+<!-- YAHIA KALI TERMINAL -->
+<section id="kali-terminal" style="background:#080b0a;color:#00ff88;padding:22px 15px;margin:25px 10px;border:1px solid #00ff88;border-radius:14px;font-family:monospace;box-shadow:0 0 18px #00ff8833">
+  <div style="text-align:center;margin-bottom:18px">
+    <div style="font-size:55px">🐉</div>
+    <h2 style="color:#00ff88;margin:5px">KALI LINUX</h2>
+    <div style="color:#aaa">2026</div>
+  </div>
+  <div style="background:#000;padding:14px;border-radius:9px;min-height:180px">
+    <div style="color:#00ff88">YAHIA@KALI:~$ <span id="kali-typing"></span><span style="animation:kblink 1s infinite">▌</span></div>
+    <div id="kali-output" style="color:#b8ffd9;white-space:pre-wrap;margin-top:12px;font-size:13px">Welcome to YAHIA KALI TERMINAL
+System interface ready...
+2026 - All systems online.</div>
+  </div>
+</section>
+<style>
+@keyframes kblink{50%{opacity:0}}
+</style>
+<script>
+(()=>{
+ const commands=[
+  "Welcome to YAHIA BOT",
+  "Loading Kali interface...",
+  "Checking system status...",
+  "YAHIA TERMINAL READY"
+ ];
+ let i=0;
+ const typing=document.getElementById("kali-typing");
+ const output=document.getElementById("kali-output");
+ function next(){
+  if(i>=commands.length)i=0;
+  let text=commands[i++],j=0;
+  typing.textContent="";
+  const timer=setInterval(()=>{
+   typing.textContent+=text[j++]||"";
+   if(j>text.length){
+    clearInterval(timer);
+    setTimeout(()=>{
+     output.textContent+="\n"+text;
+     next();
+    },1300);
+   }
+  },75);
+ }
+ next();
+})();
+</script>
+<!-- END YAHIA KALI TERMINAL -->
 </body>
 </html>
