@@ -287,6 +287,118 @@
         }
         animate();
     </script>
+
+<!-- YAHIA_FEATURES_V2 -->
+<style>
+#yah2{position:relative;z-index:5;margin:25px auto;padding:16px;max-width:950px;background:#090d14;color:#eafcff;border:1px solid #00e5ff;border-radius:16px;font-family:Arial}
+#yah2 h2{color:#00e5ff;text-align:center}
+#yah2 .tabs{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin:15px 0}
+#yah2 button{background:#101d2a;color:#00f0ff;border:1px solid #00bcd4;padding:10px;border-radius:9px}
+#yah2 button:active{background:#07505b}
+#yah2 textarea,#yah2 input{box-sizing:border-box;width:100%;background:#05090e;color:#baffd9;border:1px solid #176477;border-radius:8px;padding:10px;margin:6px 0}
+#yah2 textarea{min-height:150px;resize:vertical}
+#yah2 .panel{display:none;padding:10px;border:1px solid #173c4a;border-radius:10px}
+#yah2 .panel.active{display:block}
+#yah2 iframe{width:100%;height:260px;background:white;border:1px solid #00bcd4;border-radius:8px}
+#yah2 .msg{padding:9px;margin:7px 0;background:#101d2a;border-radius:8px;white-space:pre-wrap}
+#yah2 small{color:#9ab6c2}
+</style>
+<section id="yah2">
+<h2>⚡ YAHIA ELITE — أدوات جديدة</h2>
+<div class="tabs">
+<button onclick="yTab('assistant')">🤖 مساعد يحي</button>
+<button onclick="yTab('editor')">💻 محرر الأكواد</button>
+<button onclick="yTab('saved')">📁 مشاريعي</button>
+</div>
+
+<div id="y-assistant" class="panel active">
+<h3>🤖 مساعد يحي</h3>
+<div id="y-chat" class="msg">مرحبا! أنا مساعد يحي التجريبي. نقدر نعاونك بأمثلة HTML وCSS وPython.</div>
+<textarea id="y-question" placeholder="اكتب سؤالك هنا..."></textarea>
+<button onclick="yAsk()">إرسال</button>
+<small>ملاحظة: هذه نسخة تجريبية بردود محلية، وليست مربوطة حالياً بنموذج ذكاء اصطناعي مباشر.</small>
+</div>
+
+<div id="y-editor" class="panel">
+<h3>💻 محرر HTML</h3>
+<input id="y-filename" value="مشروعي.html" placeholder="اسم المشروع">
+<textarea id="y-code" spellcheck="false" placeholder="اكتب كود HTML هنا...">&lt;!DOCTYPE html&gt;
+&lt;html lang="ar"&gt;
+&lt;meta charset="UTF-8"&gt;
+&lt;h1&gt;مرحبا في YAHIA&lt;/h1&gt;
+&lt;p&gt;هذا أول مشروع لي!&lt;/p&gt;
+&lt;/html&gt;</textarea>
+<button onclick="yPreview()">معاينة مباشرة</button>
+<button onclick="ySave()">حفظ المشروع</button>
+<button onclick="yDownload()">تحميل HTML</button>
+<h4>المعاينة:</h4>
+<iframe id="y-preview" sandbox="allow-scripts"></iframe>
+</div>
+
+<div id="y-saved" class="panel">
+<h3>📁 المشاريع المحفوظة</h3>
+<div id="y-projects"></div>
+<small>المشاريع محفوظة في هذا المتصفح وعلى هذا الجهاز فقط.</small>
+</div>
+</section>
+<script>
+function yTab(name){
+ document.querySelectorAll('#yah2 .panel').forEach(x=>x.classList.remove('active'));
+ document.getElementById('y-'+name).classList.add('active');
+ if(name==='saved') yList();
+}
+function yAsk(){
+ const q=document.getElementById('y-question').value.trim();
+ if(!q)return;
+ const chat=document.getElementById('y-chat');
+ let answer='نقدر نعاونك في HTML وCSS وJavaScript. جرّب تكتب: كيف نصنع صفحة HTML؟';
+ if(/html/i.test(q)) answer='HTML هي لغة بناء صفحات الويب. استعمل محرر الأكواد واكتب عناصر مثل h1 وp ثم اضغط معاينة.';
+ else if(/css|تصميم|ألوان/i.test(q)) answer='CSS تستعمل لتنسيق الصفحة: الألوان، الخطوط، المسافات والخلفيات.';
+ else if(/python/i.test(q)) answer='Python لغة برمجة. مثال بسيط: print("Hello YAHIA")';
+ else if(/مرحبا|سلام/i.test(q)) answer='مرحبا بيك في YAHIA ELITE! كيف نقدر نعاونك؟';
+ chat.textContent='أنت: '+q+'\\n\\nمساعد يحي: '+answer;
+ document.getElementById('y-question').value='';
+}
+function yPreview(){
+ document.getElementById('y-preview').srcdoc=document.getElementById('y-code').value;
+}
+function yGetProjects(){
+ try{return JSON.parse(localStorage.getItem('yah2projects')||'[]')}catch(e){return []}
+}
+function ySave(){
+ const name=document.getElementById('y-filename').value.trim()||'مشروعي.html';
+ const code=document.getElementById('y-code').value;
+ let a=yGetProjects();
+ a=a.filter(x=>x.name!==name);
+ a.unshift({name,code});
+ localStorage.setItem('yah2projects',JSON.stringify(a));
+ alert('تم حفظ المشروع في هذا المتصفح.');
+ yList();
+}
+function yList(){
+ const box=document.getElementById('y-projects');
+ const a=yGetProjects();
+ box.innerHTML='';
+ if(!a.length){box.textContent='مازال ما عندك حتى مشروع محفوظ.';return}
+ a.forEach((x,i)=>{
+  const d=document.createElement('div');d.className='msg';
+  const t=document.createElement('b');t.textContent=x.name+' ';
+  const load=document.createElement('button');load.textContent='فتح';
+  load.onclick=()=>{document.getElementById('y-filename').value=x.name;document.getElementById('y-code').value=x.code;yTab('editor');yPreview()};
+  const del=document.createElement('button');del.textContent='حذف';
+  del.onclick=()=>{if(confirm('تحب تحذف هذا المشروع؟')){let z=yGetProjects();z.splice(i,1);localStorage.setItem('yah2projects',JSON.stringify(z));yList()}};
+  d.append(t,load,del);box.append(d);
+ });
+}
+function yDownload(){
+ const blob=new Blob([document.getElementById('y-code').value],{type:'text/html'});
+ const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+ a.download=document.getElementById('y-filename').value||'project.html';a.click();
+ URL.revokeObjectURL(a.href);
+}
+yPreview();
+</script>
+<!-- END YAHIA_FEATURES_V2 -->
+
 </body>
-</html
-  
+</html>
