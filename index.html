@@ -446,5 +446,56 @@ System interface ready...
 })();
 </script>
 <!-- END YAHIA KALI TERMINAL -->
+<!-- OSIRIS GLOBAL -->
+<section id="osiris" style="background:#050b0b;color:#00ff99;padding:18px;margin:20px 8px;border:1px solid #00ff9955;border-radius:14px;font-family:monospace">
+  <h2 style="text-align:center;color:#00ff99">🌍 OSIRIS GLOBAL INTELLIGENCE</h2>
+  <p style="text-align:center;color:#8affc8">GLOBAL MONITORING SYSTEM • 2026</p>
+
+  <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
+    <span>🟢 MAP ACTIVE</span>
+    <span>📡 PUBLIC DATA</span>
+    <span>🔒 SAFE MODE</span>
+  </div>
+
+  <div id="osiris-map" style="height:380px;margin-top:15px;border-radius:10px;overflow:hidden;border:1px solid #00ff99"></div>
+
+  <div style="margin-top:15px;background:#071311;padding:12px;border-radius:9px">
+    <h3 style="color:#00ff99">SYSTEM STATUS</h3>
+    <p>🟢 Global map: Active</p>
+    <p>🟢 Interface: Online</p>
+    <p>📡 Network data: Demo mode</p>
+    <p>📷 Public cameras: Not connected yet</p>
+  </div>
+</section>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+(function(){
+ const el=document.getElementById('osiris-map');
+ if(!el || typeof L==='undefined') return;
+
+ const map=L.map(el).setView([25,10],2);
+
+ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+   attribution:'© OpenStreetMap'
+ }).addTo(map);
+
+ const locations=[
+  [36.75,3.05],[48.85,2.35],[40.71,-74.00],
+  [35.68,139.69],[-33.86,151.20],
+  [51.50,-0.12],[30.04,31.23],
+  [-23.55,-46.63],[55.75,37.61]
+ ];
+
+ locations.forEach((p)=>{
+  L.circleMarker(p,{
+   radius:6,color:'#00ff99',
+   fillColor:'#00ff99',fillOpacity:.8
+  }).addTo(map).bindPopup('Demo map point');
+ });
+})();
+</script>
+<!-- END OSIRIS -->
 </body>
 </html>
