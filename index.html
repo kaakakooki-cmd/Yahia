@@ -719,5 +719,73 @@ Type help to see available commands.
 })();
 </script>
 <!-- END YAHIA TERMINAL LAB -->
+<!-- YAHIA VOICE WELCOME BOT -->
+<style>
+#yahia-welcome {
+  position:fixed;
+  bottom:18px;
+  right:15px;
+  z-index:99999;
+  background:#07130b;
+  color:#42ff91;
+  border:1px solid #22aa55;
+  border-radius:15px;
+  padding:13px;
+  font-family:Arial,sans-serif;
+  box-shadow:0 0 18px #00ff4440;
+  max-width:260px;
+  text-align:center;
+}
+#yahia-welcome button {
+  background:#123b22;
+  color:#55ff99;
+  border:1px solid #35ff83;
+  border-radius:8px;
+  padding:10px 14px;
+  margin-top:8px;
+  cursor:pointer;
+}
+</style>
+
+<div id="yahia-welcome">
+  <div style="font-size:30px">🤖</div>
+  <b>YAHIA WELCOME BOT</b>
+  <p style="font-size:13px">
+    مرحبا بيك في موقعنا، نتمنى لك تجربة ممتعة في أدوات يحي!
+  </p>
+  <button onclick="yahiaSpeak()">🔊 اسمع الترحيب</button>
+</div>
+
+<script>
+function yahiaSpeak() {
+  if (!("speechSynthesis" in window)) {
+    alert("المتصفح لا يدعم الصوت");
+    return;
+  }
+
+  speechSynthesis.cancel();
+
+  const msg = new SpeechSynthesisUtterance(
+    "مرحبا بيك في موقعنا، نتمنى لك تجربة ممتعة في أدوات يحي!"
+  );
+
+  msg.lang = "ar-DZ";
+  msg.rate = 0.88;
+  msg.pitch = 0.9;
+
+  const voices = speechSynthesis.getVoices();
+  const voice = voices.find(v => v.lang.toLowerCase() === "ar-dz")
+    || voices.find(v => v.lang.toLowerCase().startsWith("ar"));
+
+  if (voice) msg.voice = voice;
+
+  speechSynthesis.speak(msg);
+}
+
+window.addEventListener("load", () => {
+  setTimeout(yahiaSpeak, 1200);
+});
+</script>
+<!-- END YAHIA VOICE WELCOME BOT -->
 </body>
 </html>
