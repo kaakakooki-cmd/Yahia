@@ -564,18 +564,6 @@ setInterval(loadEarthquakes, 60000);
 })();
 </script>
 <!-- END OSIRIS -->
-python - <<'PY'
-from pathlib import Path
-
-p = Path("index.html")
-s = p.read_text()
-
-if "YAHIA GOLD EDITION" in s:
-    print("القسم موجود بالفعل، ما زدنا والو.")
-elif "</body>" not in s:
-    print("ما لقيناش body، ما تبدل والو.")
-else:
-    section = """
 <!-- YAHIA GOLD EDITION -->
 <style>
 .yahia-gold {
@@ -612,6 +600,124 @@ else:
   <div>✦ ━━━━━━━━━ ✦</div>
 </section>
 <!-- END YAHIA GOLD EDITION -->
+<!-- YAHIA TERMINAL LAB -->
+<style>
+#yahia-terminal {
+  background:#050907;
+  color:#35ff83;
+  border:1px solid #168849;
+  border-radius:15px;
+  padding:18px;
+  margin:25px 10px;
+  font-family:monospace;
+  box-shadow:0 0 20px #00ff4420;
+}
+#yahia-terminal h2 {
+  color:#35ff83;
+  text-align:center;
+  letter-spacing:3px;
+}
+#yt-screen {
+  background:#020403;
+  border:1px solid #174b2d;
+  border-radius:9px;
+  padding:13px;
+  min-height:190px;
+  max-height:300px;
+  overflow-y:auto;
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
+  font-size:13px;
+}
+#yt-input {
+  width:100%;
+  box-sizing:border-box;
+  margin-top:12px;
+  padding:13px;
+  background:#07130c;
+  color:#55ff99;
+  border:1px solid #168849;
+  border-radius:8px;
+  outline:none;
+}
+</style>
 
+<section id="yahia-terminal">
+  <h2>YAHIA TERMINAL LAB</h2>
+  <p style="text-align:center;color:#8bb99b">
+    Educational Simulator · Safe Mode
+  </p>
+
+  <div id="yt-screen">YAHIA TERMINAL v1.0
+Welcome to the educational terminal.
+Type help to see available commands.
+</div>
+
+  <input id="yt-input" type="text"
+    placeholder="اكتب أمراً ثم اضغط Enter"
+    autocomplete="off">
+
+  <small>Safe Educational Simulator</small>
+</section>
+
+<script>
+(() => {
+  const input = document.getElementById("yt-input");
+  const screen = document.getElementById("yt-screen");
+
+  function print(text) {
+    screen.textContent += "\n" + text;
+    screen.scrollTop = screen.scrollHeight;
+  }
+
+  function runCommand(raw) {
+    const command = raw.trim();
+    if (!command) return;
+
+    print("visitor@YAHIA:~$ " + command);
+
+    const parts = command.split(" ");
+    const name = parts[0].toLowerCase();
+    const argument = parts.slice(1).join(" ");
+
+    switch (name) {
+      case "help":
+        print("help - المساعدة\nabout - معلومات المحاكي\ndate - الوقت\nwhoami - المستخدم\npwd - المسار\nls - الملفات\necho TEXT - طباعة نص\nclear - مسح الشاشة");
+        break;
+      case "about":
+        print("YAHIA TERMINAL LAB\nVersion: 1.0\nMode: Safe Simulation");
+        break;
+      case "date":
+        print(new Date().toString());
+        break;
+      case "whoami":
+        print("visitor");
+        break;
+      case "pwd":
+        print("/home/yahia/demo");
+        break;
+      case "ls":
+        print("Documents/   Projects/   welcome.txt");
+        break;
+      case "echo":
+        print(argument);
+        break;
+      case "clear":
+        screen.textContent = "YAHIA TERMINAL v1.0\n";
+        break;
+      default:
+        print("Command not found: " + name + "\nType help to see commands.");
+    }
+  }
+
+  input.addEventListener("keydown", event => {
+    if (event.key === "Enter") {
+      runCommand(input.value);
+      input.value = "";
+    }
+  });
+})();
+</script>
+<!-- END YAHIA TERMINAL LAB -->
 </body>
 </html>
