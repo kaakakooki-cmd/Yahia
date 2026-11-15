@@ -734,8 +734,7 @@ Type help to see available commands.
   font-family:Arial,sans-serif;
   box-shadow:0 0 18px #00ff4440;
   max-width:260px;
-  text-align:center;
-}
+  text-align:center;}
 #yahia-welcome button {
   background:#123b22;
   color:#55ff99;
@@ -748,8 +747,12 @@ Type help to see available commands.
 </style>
 
 <div id="yahia-welcome">
-  <div style="font-size:30px">🤖</div>
-  <b>YAHIA WELCOME BOT</b>
+ <button onclick="document.getElementById('yahia-welcome').remove()"
+style="position:absolute;top:8px;right:8px;background:#06351d;color:#00ff80;border:1px solid #00ff80;border-radius:6px;padding:5px 10px;cursor:pointer;">
+✖
+</button>
+<div style="font-size:30px">🤖</div>
+<b>YAHIA WELCOME BOT</b>
   <p style="font-size:13px">
     مرحبا بيك في موقعنا، نتمنى لك تجربة ممتعة في أدوات يحي!
   </p>
