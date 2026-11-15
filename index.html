@@ -564,5 +564,54 @@ setInterval(loadEarthquakes, 60000);
 })();
 </script>
 <!-- END OSIRIS -->
+python - <<'PY'
+from pathlib import Path
+
+p = Path("index.html")
+s = p.read_text()
+
+if "YAHIA GOLD EDITION" in s:
+    print("القسم موجود بالفعل، ما زدنا والو.")
+elif "</body>" not in s:
+    print("ما لقيناش body، ما تبدل والو.")
+else:
+    section = """
+<!-- YAHIA GOLD EDITION -->
+<style>
+.yahia-gold {
+  background: #050505;
+  color: #d4af37;
+  border: 1px solid #8b7024;
+  border-radius: 18px;
+  padding: 28px 15px;
+  margin: 25px 10px;
+  text-align: center;
+  box-shadow: 0 0 25px #b8863025;
+  font-family: serif;
+}
+.yahia-gold .symbol {
+  font-size: 65px;
+  text-shadow: 0 0 20px #d4af37;
+}
+.yahia-gold h2 {
+  letter-spacing: 5px;
+  color: #e8c75a;
+}
+.yahia-gold p {
+  color: #c5b477;
+  letter-spacing: 2px;
+}
+</style>
+<section class="yahia-gold">
+  <div>✦ ━━━━━ ◇ ━━━━━ ✦</div>
+  <div class="symbol">𓂀</div>
+  <h2>YAHIA ELITE</h2>
+  <p>ORDO · VERITAS · SAPIENTIA</p>
+  <div>△ ◆ △</div>
+  <p>THE WORLD OF KNOWLEDGE</p>
+  <div>✦ ━━━━━━━━━ ✦</div>
+</section>
+<!-- END YAHIA GOLD EDITION -->
+
 </body>
 </html>
